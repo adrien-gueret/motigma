@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/png" href="./favicon.png" sizes="32x32" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@300;400;700&display=swap"
+    />
+    <title>Motigma</title>
+
+    <meta name="author" content="Adrien Guéret" />
+    <meta name="robots" content="all" />
+    <meta
+      name="description"
+      content="Motigma est un jeu de lettres dans lequel vous devez trouver un mot-mystère en un minimum de coups."
+    />
+    <meta property="og:url" content="https://adrien-gueret.github.io/motigma" />
+    <meta property="og:title" content="Motigma" />
+    <meta
+      property="og:description"
+      content="Motigma est un jeu de lettres dans lequel vous devez trouver un mot-mystère en un minimum de coups."
+    />
+    <meta
+      property="og:image"
+      content="https://adrien-gueret.github.io/motigma/images/presentation.png"
+    />
+    <meta
+      property="twitter:url"
+      content="https://adrien-gueret.github.io/motigma"
+    />
+    <meta property="twitter:title" content="Motigma" />
+    <meta
+      property="twitter:description"
+      content="Motigma est un jeu de lettres dans lequel vous devez trouver un mot-mystère en un minimum de coups."
+    />
+    <meta
+      property="twitter:image"
+      content="https://adrien-gueret.github.io/motigma/images/presentation.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@AdrienGueret" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "Motigma",
+        "operatingSystem": "Android",
+        "applicationCategory": "GameApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.99",
+          "priceCurrency": "EUR"
+        },
+        "contentRating": "PEGI 3",
+        "description": "Motigma est un jeu mobile éducatif et divertissant conçu pour les joueurs de tout âge. Explorez des défis passionnants et améliorez vos compétences tout en vous amusant !",
+        "downloadUrl": "https://play.google.com/store/apps/details?id=com.agueret.motigma",
+        "screenshot": [
+          "https://play-lh.googleusercontent.com/ZI0HooBbSEjWDtaOfvoKAkLS419E4YPHGc_11M8Ww8dS3KLxjMlKBGAf__YnsFIHRF2r=w5120-h2880",
+          "https://play-lh.googleusercontent.com/49RaKOByL452snLeSgCG0XjC-Ps4zArvwAmCsYgB4FpsGhVa2fReTNUQKGXSPbbhxCI=w5120-h2880",
+          "https://play-lh.googleusercontent.com/voBRZElwrpegmbwNKki0NqnNnGP6G3RJuSwVJEs3wvxeAFxZ4clRzjfk4Qxvtvhvckbx=w5120-h2880",
+          "https://play-lh.googleusercontent.com/kgetc67Ys-zsTAfn57QpgKb2GL4DLoCnOIEpvKDAJ9ynZUptblVL-loGv-zGcS707g2H=w5120-h2880",
+          "https://play-lh.googleusercontent.com/FGZWNW1EcOXqzk7ziAaA4v0NjgCIuBqu87oA2vPH9yzFM51KOsvKV3f2cYOsMi4vDaim=w5120-h2880",
+          "https://play-lh.googleusercontent.com/BuXQPJYiFWYWLu3cUzae9eg72tvzQfBZmZP8fu5pn5cBN04UzbbuoEJGS0lONFewHg=w5120-h2880",
+          "https://play-lh.googleusercontent.com/hn9YtHwgGwXDPQJuFjUmST_MRo7sthCEhgjF4Tp7jdwx45kRvGCB6JCf66yxvDRC5OM=w5120-h2880"
+        ],
+        "softwareVersion": "2.6.0",
+        "author": {
+          "@type": "Person",
+          "name": "Adrien Guéret",
+          "url": "https://x.com/AdrienGueret"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Adrien Guéret"
+        },
+        "genre": ["Jeu de lettres", "Réflexion", "Puzzle"],
+        "keywords": "jeu de lettres, mots, réflexion, puzzle, Wordle, Motus, trouver des mots, vocabulaire, mobile"
+      }
+    </script>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        touch-action: manipulation;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        max-width: 100vw;
+        min-height: 100dvh;
+        max-width: 100dvw;
+        justify-content: stretch;
+        box-sizing: border-box;
+      }
+
+      #app {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+      }
+
+      #background {
+        --filter: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        width: 100dvw;
+        height: 100dvh;
+        z-index: -1;
+        pointer-events: none;
+
+        filter: var(--filter);
+
+        background-image: url("./images/background.png");
+        background-image: -webkit-image-set(
+          url("./images/background.png") 1x,
+          url("./images/background_hd.png") 2x
+        );
+        background-image: image-set(
+          "./images/background.png" 1x,
+          "./images/background_hd.png" 2x
+        );
+
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom center;
+      }
+
+      #endGameWord,
+      #endGameWord:visited {
+        color: initial;
+      }
+
+      #endGameWord[href],
+      #endGameWord[href]:visited {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #007bff;
+        white-space: nowrap;
+      }
+
+      #endGameWord[href]:hover {
+        color: #0056b3;
+      }
+
+      #endGameWord[href]::after {
+        content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+        margin: 0 3px 0 5px;
+      }
+
+      select::-ms-expand {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="checkSound" preload="auto">
+      <source src="./sounds/checkSound.ogg" type="audio/ogg" />
+      <source src="./sounds/checkSound.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="surprised" preload="auto">
+      <source src="./sounds/surprised.ogg" type="audio/ogg" />
+      <source src="./sounds/surprised.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="error" preload="auto">
+      <source src="./sounds/error.ogg" type="audio/ogg" />
+      <source src="./sounds/error.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="click" preload="auto">
+      <source src="./sounds/click.ogg" type="audio/ogg" />
+      <source src="./sounds/click.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="rockIn" preload="auto">
+      <source src="./sounds/rockIn.ogg" type="audio/ogg" />
+      <source src="./sounds/rockIn.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="achievement" preload="auto">
+      <source src="./sounds/achievement.ogg" type="audio/ogg" />
+      <source src="./sounds/achievement.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="rockOut" preload="auto">
+      <source src="./sounds/rockOut.ogg" type="audio/ogg" />
+      <source src="./sounds/rockOut.wav" type="audio/wav" />
+    </audio>
+
+    <div id="background"></div>
+
+    <main id="app"></main>
+
+    <script>
+      window.App = { version: "2.6.0" };
+    </script>
+
+    </script><script src="./index.js"></script>
+  </body>
+</html>
